@@ -1,0 +1,48 @@
+{
+  "actions": [],
+  "allow_rename": 0,
+  "autoname": "hash",
+  "creation": "2024-01-01 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "enable_push_receive_products",
+    "enable_push_receive_orders",
+    "enable_manual_pull"
+  ],
+  "fields": [
+    {
+      "default": "1",
+      "fieldname": "enable_push_receive_products",
+      "fieldtype": "Check",
+      "label": "Enable Push Receive Products"
+    },
+    {
+      "default": "1",
+      "fieldname": "enable_push_receive_orders",
+      "fieldtype": "Check",
+      "label": "Enable Push Receive Orders"
+    },
+    {
+      "default": "1",
+      "fieldname": "enable_manual_pull",
+      "fieldtype": "Check",
+      "label": "Enable Manual Pull"
+    }
+  ],
+  "issingle": 1,
+  "module": "Salla Client",
+  "name": "Salla Connection Settings",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "read": 1,
+      "role": "System Manager",
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": []
+}
