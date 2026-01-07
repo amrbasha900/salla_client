@@ -1,49 +1,60 @@
 {
   "actions": [],
-  "allow_rename": 0,
-  "autoname": "hash",
-  "creation": "2024-01-01 00:00:00.000000",
-  "custom": 0,
+  "autoname": "field:idempotency_key",
   "doctype": "DocType",
-  "editable_grid": 1,
   "engine": "InnoDB",
+  "field_order": [
+    "idempotency_key",
+    "command_id",
+    "received_at",
+    "store_id",
+    "command_type",
+    "entity_type",
+    "status",
+    "payload",
+    "error_details",
+    "apply_results"
+  ],
   "fields": [
     {
       "fieldname": "idempotency_key",
       "fieldtype": "Data",
       "label": "Idempotency Key",
       "reqd": 1,
-      "unique": 1,
-      "search_index": 1
+      "unique": 1
+    },
+    {
+      "fieldname": "command_id",
+      "fieldtype": "Data",
+      "label": "Command ID"
     },
     {
       "fieldname": "received_at",
       "fieldtype": "Datetime",
       "label": "Received At",
-      "reqd": 1
+      "read_only": 1
     },
     {
       "fieldname": "store_id",
       "fieldtype": "Data",
-      "label": "Store ID",
-      "reqd": 1
-    },
-    {
-      "fieldname": "store_account_id",
-      "fieldtype": "Data",
-      "label": "Store Account ID"
+      "label": "Store ID"
     },
     {
       "fieldname": "command_type",
       "fieldtype": "Data",
-      "label": "Command Type",
-      "reqd": 1
+      "label": "Command Type"
     },
     {
       "fieldname": "entity_type",
       "fieldtype": "Data",
-      "label": "Entity Type",
-      "reqd": 1
+      "label": "Entity Type"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "received\napplied\nskipped\nfailed\nrejected",
+      "default": "received"
     },
     {
       "fieldname": "payload",
@@ -51,15 +62,8 @@
       "label": "Payload"
     },
     {
-      "fieldname": "status",
-      "fieldtype": "Select",
-      "label": "Status",
-      "options": "Pending\nApplied\nFailed",
-      "default": "Pending"
-    },
-    {
       "fieldname": "error_details",
-      "fieldtype": "Text",
+      "fieldtype": "Small Text",
       "label": "Error Details"
     },
     {
@@ -69,29 +73,20 @@
       "options": "Client Apply Result"
     }
   ],
-  "issingle": 0,
   "istable": 0,
-  "links": [],
-  "modified": "2024-01-01 00:00:00.000000",
-  "modified_by": "Administrator",
   "module": "Salla Client",
   "name": "Client Incoming Command",
+  "owner": "Administrator",
   "permissions": [
     {
       "create": 1,
       "delete": 1,
-      "email": 1,
-      "export": 1,
-      "import": 1,
-      "print": 1,
       "read": 1,
-      "report": 1,
       "role": "System Manager",
-      "share": 1,
       "write": 1
     }
   ],
-  "sort_field": "received_at",
+  "sort_field": "modified",
   "sort_order": "DESC",
-  "title_field": "idempotency_key"
+  "track_changes": 1
 }
