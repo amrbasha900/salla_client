@@ -1,0 +1,70 @@
+{
+  "actions": [],
+  "allow_rename": 0,
+  "autoname": "hash",
+  "creation": "2024-01-01 00:00:00.000000",
+  "custom": 0,
+  "doctype": "DocType",
+  "editable_grid": 0,
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "nonce",
+      "fieldtype": "Data",
+      "label": "Nonce",
+      "reqd": 1,
+      "unique": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "timestamp",
+      "fieldtype": "Datetime",
+      "label": "Timestamp",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instance_id",
+      "fieldtype": "Data",
+      "label": "Instance ID",
+      "reqd": 1
+    },
+    {
+      "fieldname": "ttl_seconds",
+      "fieldtype": "Int",
+      "label": "TTL (Seconds)",
+      "default": 300,
+      "description": "Time-to-live used for cleanup policy"
+    },
+    {
+      "fieldname": "expires_at",
+      "fieldtype": "Datetime",
+      "label": "Expires At",
+      "description": "Calculated expiry for cleanup"
+    }
+  ],
+  "issingle": 0,
+  "istable": 0,
+  "links": [],
+  "modified": "2024-01-01 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Salla Client",
+  "name": "Client Nonce Log",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "import": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "timestamp",
+  "sort_order": "DESC",
+  "title_field": "nonce"
+}
