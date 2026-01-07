@@ -1,0 +1,73 @@
+{
+  "actions": [],
+  "allow_rename": 0,
+  "autoname": "hash",
+  "creation": "2024-01-01 00:00:00.000000",
+  "custom": 0,
+  "doctype": "DocType",
+  "editable_grid": 0,
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "store_id",
+      "fieldtype": "Data",
+      "label": "Store ID",
+      "reqd": 1
+    },
+    {
+      "fieldname": "entity_type",
+      "fieldtype": "Data",
+      "label": "Entity Type",
+      "reqd": 1
+    },
+    {
+      "fieldname": "external_id",
+      "fieldtype": "Data",
+      "label": "External ID",
+      "reqd": 1
+    },
+    {
+      "fieldname": "sku",
+      "fieldtype": "Data",
+      "label": "SKU"
+    },
+    {
+      "fieldname": "reason",
+      "fieldtype": "Small Text",
+      "label": "Reason",
+      "reqd": 1
+    },
+    {
+      "fieldname": "created_at",
+      "fieldtype": "Datetime",
+      "label": "Created At",
+      "default": "now",
+      "read_only": 1
+    }
+  ],
+  "issingle": 0,
+  "istable": 0,
+  "links": [],
+  "modified": "2024-01-01 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Salla Client",
+  "name": "SKU Skip Log",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "import": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "created_at",
+  "sort_order": "DESC",
+  "title_field": "external_id"
+}

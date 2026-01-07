@@ -1,0 +1,99 @@
+{
+  "actions": [],
+  "allow_rename": 0,
+  "autoname": "",
+  "creation": "2024-01-01 00:00:00.000000",
+  "custom": 0,
+  "doctype": "DocType",
+  "editable_grid": 0,
+  "engine": "InnoDB",
+  "fields": [
+    {
+      "fieldname": "manager_base_url",
+      "fieldtype": "Data",
+      "label": "Manager Base URL",
+      "reqd": 1
+    },
+    {
+      "fieldname": "instance_id",
+      "fieldtype": "Data",
+      "label": "Instance ID",
+      "reqd": 1
+    },
+    {
+      "fieldname": "shared_secret",
+      "fieldtype": "Password",
+      "label": "Shared Secret",
+      "reqd": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Unknown\nActive\nInactive",
+      "default": "Unknown"
+    },
+    {
+      "fieldname": "allowed_manager_ips",
+      "fieldtype": "Small Text",
+      "label": "Allowed Manager IPs",
+      "description": "Comma-separated list of allowed manager IPs"
+    },
+    {
+      "fieldname": "last_seen_at",
+      "fieldtype": "Datetime",
+      "label": "Last Seen At",
+      "read_only": 1
+    },
+    {
+      "fieldname": "enable_push_receive_products",
+      "fieldtype": "Check",
+      "label": "Enable Push Receive Products",
+      "default": 0
+    },
+    {
+      "fieldname": "enable_push_receive_orders",
+      "fieldtype": "Check",
+      "label": "Enable Push Receive Orders",
+      "default": 0
+    },
+    {
+      "fieldname": "enable_manual_pull",
+      "fieldtype": "Check",
+      "label": "Enable Manual Pull",
+      "default": 0
+    },
+    {
+      "fieldname": "timestamp_window_seconds",
+      "fieldtype": "Int",
+      "label": "Timestamp Window (Seconds)",
+      "default": 300,
+      "description": "Allowed timestamp window for signed requests"
+    }
+  ],
+  "issingle": 1,
+  "istable": 0,
+  "links": [],
+  "modified": "2024-01-01 00:00:00.000000",
+  "modified_by": "Administrator",
+  "module": "Salla Client",
+  "name": "Salla Manager Connection",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "import": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "title_field": "manager_base_url"
+}
