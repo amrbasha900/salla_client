@@ -1,0 +1,98 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "autoname": "format:{store_id}-{category_id}",
+  "creation": "2026-01-01 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "store_id",
+    "category_id",
+    "category_name",
+    "parent_category_id",
+    "level",
+    "sort_order",
+    "is_active",
+    "path",
+    "raw"
+  ],
+  "fields": [
+    {
+      "fieldname": "store_id",
+      "fieldtype": "Data",
+      "label": "Store ID",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "category_id",
+      "fieldtype": "Data",
+      "label": "Category ID",
+      "reqd": 1,
+      "in_list_view": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "category_name",
+      "fieldtype": "Data",
+      "label": "Category Name",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "parent_category_id",
+      "fieldtype": "Data",
+      "label": "Parent Category ID"
+    },
+    {
+      "fieldname": "level",
+      "fieldtype": "Int",
+      "label": "Level"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order"
+    },
+    {
+      "default": "1",
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active"
+    },
+    {
+      "fieldname": "path",
+      "fieldtype": "Data",
+      "label": "Path"
+    },
+    {
+      "fieldname": "raw",
+      "fieldtype": "JSON",
+      "label": "Raw Payload"
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "links": [],
+  "module": "Salla Client",
+  "name": "Salla Category",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "category_name",
+  "sort_order": "ASC",
+  "title_field": "category_name"
+}
+

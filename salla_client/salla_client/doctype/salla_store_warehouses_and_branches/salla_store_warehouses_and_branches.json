@@ -1,0 +1,187 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-08 11:30:20.980659",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "salla_id",
+  "branch_name",
+  "type",
+  "status",
+  "erp_branch",
+  "erp_warehouse",
+  "is_default",
+  "is_cod_available",
+  "city",
+  "postal_code",
+  "phone",
+  "telephone",
+  "column_break_buzb",
+  "country",
+  "preparation_time",
+  "cod_cost",
+  "address_description",
+  "whatsapp",
+  "street",
+  "local",
+  "location_lng",
+  "location_lat"
+ ],
+ "fields": [
+  {
+   "fieldname": "salla_id",
+   "fieldtype": "Data",
+   "label": "Salla ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "branch_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "\nbranch\nwarehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "\nactive\ninactive",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_default",
+   "fieldtype": "Check",
+   "label": "Default",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_cod_available",
+   "fieldtype": "Check",
+   "label": "COD Available",
+   "read_only": 1
+  },
+  {
+   "fieldname": "cod_cost",
+   "fieldtype": "Currency",
+   "label": "COD Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "preparation_time",
+   "fieldtype": "Data",
+   "label": "Preparation Time",
+   "read_only": 1
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country",
+   "read_only": 1
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Data",
+   "label": "City",
+   "read_only": 1
+  },
+  {
+   "fieldname": "street",
+   "fieldtype": "Data",
+   "label": "Street",
+   "read_only": 1
+  },
+  {
+   "fieldname": "local",
+   "fieldtype": "Data",
+   "label": "Neighborhood",
+   "read_only": 1
+  },
+  {
+   "fieldname": "postal_code",
+   "fieldtype": "Data",
+   "label": "Postal Code",
+   "read_only": 1
+  },
+  {
+   "fieldname": "address_description",
+   "fieldtype": "Small Text",
+   "label": "Address Description",
+   "read_only": 1
+  },
+  {
+   "fieldname": "location_lat",
+   "fieldtype": "Data",
+   "label": "Latitude"
+  },
+  {
+   "fieldname": "location_lng",
+   "fieldtype": "Data",
+   "label": "Longitude",
+   "read_only": 1
+  },
+  {
+   "fieldname": "phone",
+   "fieldtype": "Data",
+   "label": "Phone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "whatsapp",
+   "fieldtype": "Data",
+   "label": "WhatsApp",
+   "read_only": 1
+  },
+  {
+   "fieldname": "telephone",
+   "fieldtype": "Data",
+   "label": "Telephone",
+   "read_only": 1
+  },
+  {
+   "fieldname": "erp_branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "ERP Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "erp_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "ERP Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "column_break_buzb",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-01-08 11:30:40.473160",
+ "modified_by": "Administrator",
+ "module": "Salla Client",
+ "name": "Salla Store Warehouses and Branches",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

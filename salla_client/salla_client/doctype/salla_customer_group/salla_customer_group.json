@@ -1,0 +1,81 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "autoname": "format:{store_id}-{group_id}",
+  "creation": "2026-01-01 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "store_id",
+    "group_id",
+    "group_name",
+    "status",
+    "description",
+    "raw"
+  ],
+  "fields": [
+    {
+      "fieldname": "store_id",
+      "fieldtype": "Data",
+      "label": "Store ID",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "group_id",
+      "fieldtype": "Data",
+      "label": "Group ID",
+      "reqd": 1,
+      "in_list_view": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "group_name",
+      "fieldtype": "Data",
+      "label": "Group Name",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "active\ninactive",
+      "default": "active"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description"
+    },
+    {
+      "fieldname": "raw",
+      "fieldtype": "JSON",
+      "label": "Raw Payload"
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "links": [],
+  "module": "Salla Client",
+  "name": "Salla Customer Group",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "group_name",
+  "sort_order": "ASC",
+  "title_field": "group_name"
+}
+

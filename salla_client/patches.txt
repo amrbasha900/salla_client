@@ -4,3 +4,6 @@
 
 [post_model_sync]
 # Patches added in this section will be executed after doctypes are migrated
+salla_client.patches.post_model_sync.add_external_id_custom_fields
+salla_client.patches.post_model_sync.add_salla_metadata_custom_fields
+salla_client.patches.post_model_sync.add_legacy_salla_custom_fields_full

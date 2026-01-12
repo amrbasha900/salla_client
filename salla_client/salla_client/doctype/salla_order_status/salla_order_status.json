@@ -1,0 +1,254 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "autoname": "format:{salla_status_id}-{status_name}",
+  "creation": "2026-01-01 00:00:00.000000",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "status_details_section",
+    "store_id",
+    "salla_status_id",
+    "status_name",
+    "column_break_details",
+    "status_type",
+    "slug",
+    "sort_order",
+    "icon",
+    "is_active",
+    "message_section",
+    "message",
+    "translations_json",
+    "relationships_section",
+    "parent_status_id",
+    "parent_status_name",
+    "column_break_relationships",
+    "original_status_id",
+    "original_status_name",
+    "erpnext_actions_section",
+    "create_sales_order",
+    "submit_sales_order",
+    "create_sales_invoice",
+    "submit_sales_invoice",
+    "create_delivery_note",
+    "submit_sales_delivery_note",
+    "column_break_mdrq",
+    "cancel_sales_order",
+    "cancel_sales_invoice",
+    "cancel_delivery_note",
+    "make_return"
+  ],
+  "fields": [
+    {
+      "fieldname": "status_details_section",
+      "fieldtype": "Section Break",
+      "label": "Status Details"
+    },
+    {
+      "fieldname": "store_id",
+      "fieldtype": "Data",
+      "label": "Store ID",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "salla_status_id",
+      "fieldtype": "Data",
+      "label": "Salla Status ID",
+      "reqd": 1,
+      "in_list_view": 1,
+      "read_only": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "status_name",
+      "fieldtype": "Data",
+      "label": "Status Name",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1,
+      "read_only": 1
+    },
+    {
+      "fieldname": "column_break_details",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "status_type",
+      "fieldtype": "Data",
+      "label": "Status Type",
+      "in_standard_filter": 1,
+      "read_only": 1
+    },
+    {
+      "fieldname": "slug",
+      "fieldtype": "Data",
+      "label": "Slug",
+      "read_only": 1
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Sort Order",
+      "read_only": 1
+    },
+    {
+      "fieldname": "icon",
+      "fieldtype": "Data",
+      "label": "Icon",
+      "read_only": 1
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": "0",
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "message_section",
+      "fieldtype": "Section Break",
+      "label": "Messaging"
+    },
+    {
+      "fieldname": "message",
+      "fieldtype": "Long Text",
+      "label": "Customer Message",
+      "read_only": 1
+    },
+    {
+      "fieldname": "translations_json",
+      "fieldtype": "Code",
+      "label": "Translations (JSON)",
+      "options": "JSON",
+      "read_only": 1
+    },
+    {
+      "fieldname": "relationships_section",
+      "fieldtype": "Section Break",
+      "label": "Relationships"
+    },
+    {
+      "fieldname": "parent_status_id",
+      "fieldtype": "Data",
+      "label": "Parent Status ID",
+      "read_only": 1
+    },
+    {
+      "fieldname": "parent_status_name",
+      "fieldtype": "Data",
+      "label": "Parent Status Name",
+      "read_only": 1
+    },
+    {
+      "fieldname": "column_break_relationships",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "original_status_id",
+      "fieldtype": "Data",
+      "label": "Original Status ID",
+      "read_only": 1
+    },
+    {
+      "fieldname": "original_status_name",
+      "fieldtype": "Data",
+      "label": "Original Status Name",
+      "read_only": 1
+    },
+    {
+      "fieldname": "erpnext_actions_section",
+      "fieldtype": "Section Break",
+      "label": "ERPNext Actions"
+    },
+    {
+      "fieldname": "create_sales_order",
+      "fieldtype": "Check",
+      "label": "Create Sales Order",
+      "default": "0"
+    },
+    {
+      "fieldname": "submit_sales_order",
+      "fieldtype": "Check",
+      "label": "Submit Sales Order",
+      "default": "0"
+    },
+    {
+      "fieldname": "create_sales_invoice",
+      "fieldtype": "Check",
+      "label": "Create Sales Invoice",
+      "default": "0"
+    },
+    {
+      "fieldname": "submit_sales_invoice",
+      "fieldtype": "Check",
+      "label": "Submit Sales Invoice",
+      "default": "0"
+    },
+    {
+      "fieldname": "create_delivery_note",
+      "fieldtype": "Check",
+      "label": "Create Delivery Note",
+      "default": "0"
+    },
+    {
+      "fieldname": "submit_sales_delivery_note",
+      "fieldtype": "Check",
+      "label": "Submit Sales Delivery Note",
+      "default": "0"
+    },
+    {
+      "fieldname": "column_break_mdrq",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "cancel_sales_order",
+      "fieldtype": "Check",
+      "label": "Cancel Sales Order",
+      "default": "0"
+    },
+    {
+      "fieldname": "cancel_sales_invoice",
+      "fieldtype": "Check",
+      "label": "Cancel Sales Invoice",
+      "default": "0"
+    },
+    {
+      "fieldname": "cancel_delivery_note",
+      "fieldtype": "Check",
+      "label": "Cancel Delivery Note",
+      "default": "0"
+    },
+    {
+      "fieldname": "make_return",
+      "fieldtype": "Check",
+      "label": "Make Return",
+      "default": "0"
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "links": [],
+  "module": "Salla Client",
+  "name": "Salla Order Status",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "status_name",
+  "sort_order": "ASC",
+  "title_field": "status_name"
+}
+
+

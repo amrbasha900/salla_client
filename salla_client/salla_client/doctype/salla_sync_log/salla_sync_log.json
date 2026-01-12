@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "autoname": "format:SYNC-{salla_store}-{#####}",
+ "creation": "2025-10-15 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "sync_details_section",
+  "salla_store",
+  "sync_type",
+  "column_break_2",
+  "status",
+  "started_at",
+  "completed_at",
+  "section_break_5",
+  "total_records",
+  "successful_records",
+  "column_break_8",
+  "failed_records",
+  "skipped_records",
+  "details_section",
+  "error_message",
+  "sync_data",
+  "traceback"
+ ],
+ "fields": [
+  {
+   "fieldname": "sync_details_section",
+   "fieldtype": "Section Break",
+   "label": "Sync Details"
+  },
+  {
+   "fieldname": "salla_store",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Salla Store",
+   "options": "Salla Store",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sync_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Sync Type",
+   "options": "Products\nOrders\nOrder Statuses\nCustomers\nCategories\nCustomer Groups\nBrands\nInventory\nOptions\nFull Sync\nWebhook",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Queued",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Queued\nIn Progress\nCompleted\nPartially Completed\nFailed\nCancelled",
+   "reqd": 1
+  },
+  {
+   "fieldname": "started_at",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Started At"
+  },
+  {
+   "fieldname": "completed_at",
+   "fieldtype": "Datetime",
+   "label": "Completed At"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break",
+   "label": "Statistics"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_records",
+   "fieldtype": "Int",
+   "label": "Total Records"
+  },
+  {
+   "default": "0",
+   "fieldname": "successful_records",
+   "fieldtype": "Int",
+   "label": "Successful Records"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "failed_records",
+   "fieldtype": "Int",
+   "label": "Failed Records"
+  },
+  {
+   "default": "0",
+   "fieldname": "skipped_records",
+   "fieldtype": "Int",
+   "label": "Skipped Records"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "details_section",
+   "fieldtype": "Section Break",
+   "label": "Details"
+  },
+  {
+   "fieldname": "error_message",
+   "fieldtype": "Long Text",
+   "label": "Error Message"
+  },
+  {
+   "fieldname": "sync_data",
+   "fieldtype": "Code",
+   "label": "Sync Data",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "traceback",
+   "fieldtype": "Long Text",
+   "label": "Traceback"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-11-19 16:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "Salla Client",
+ "name": "Salla Sync Log",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
+
