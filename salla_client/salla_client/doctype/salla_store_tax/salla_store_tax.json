@@ -1,0 +1,62 @@
+{
+  "actions": [],
+  "allow_rename": 1,
+  "creation": "2026-01-01 00:00:00.000000",
+  "doctype": "DocType",
+  "editable_grid": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "tax_id",
+    "status",
+    "tax",
+    "country",
+    "sales_taxes_and_charges_template"
+  ],
+  "fields": [
+    {
+      "fieldname": "tax_id",
+      "fieldtype": "Data",
+      "label": "Tax ID",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "\nactive\ninactive",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "tax",
+      "fieldtype": "Float",
+      "label": "Tax %",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "country",
+      "fieldtype": "Data",
+      "label": "Country",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "sales_taxes_and_charges_template",
+      "fieldtype": "Link",
+      "label": "Sales Taxes and Charges Template",
+      "options": "Sales Taxes and Charges Template",
+      "in_list_view": 1
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "istable": 1,
+  "links": [],
+  "module": "Salla Client",
+  "name": "Salla Store Tax",
+  "owner": "Administrator",
+  "permissions": [],
+  "sort_field": "modified",
+  "sort_order": "DESC"
+}
+

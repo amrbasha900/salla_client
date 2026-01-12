@@ -30,8 +30,9 @@
       "fieldname": "status",
       "fieldtype": "Select",
       "label": "Status",
-      "options": "Unknown\nActive\nInactive",
-      "default": "Unknown"
+      "options": "pending\nconnected\nrevoked",
+      "default": "pending",
+      "description": "Connection state with Salla Manager"
     },
     {
       "fieldname": "allowed_manager_ips",
@@ -49,26 +50,26 @@
       "fieldname": "enable_push_receive_products",
       "fieldtype": "Check",
       "label": "Enable Push Receive Products",
-      "default": 0
+      "default": 1
     },
     {
       "fieldname": "enable_push_receive_orders",
       "fieldtype": "Check",
       "label": "Enable Push Receive Orders",
-      "default": 0
+      "default": 1
     },
     {
       "fieldname": "enable_manual_pull",
       "fieldtype": "Check",
       "label": "Enable Manual Pull",
-      "default": 0
+      "default": 1
     },
     {
       "fieldname": "timestamp_window_seconds",
       "fieldtype": "Int",
       "label": "Timestamp Window (Seconds)",
       "default": 300,
-      "description": "Allowed timestamp window for signed requests"
+      "description": "Allowed timestamp window for signed requests (seconds)"
     }
   ],
   "issingle": 1,

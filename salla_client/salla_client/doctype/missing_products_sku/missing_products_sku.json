@@ -1,0 +1,86 @@
+{
+  "actions": [],
+  "autoname": "hash",
+  "creation": "2025-11-11 00:00:00",
+  "doctype": "DocType",
+  "engine": "InnoDB",
+  "field_order": [
+    "salla_store",
+    "product_id",
+    "product_name",
+    "missing_type",
+    "occurred_at",
+    "remarks"
+  ],
+  "fields": [
+    {
+      "fieldname": "salla_store",
+      "fieldtype": "Link",
+      "label": "Salla Store",
+      "options": "Salla Store",
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "product_id",
+      "fieldtype": "Data",
+      "label": "Product ID",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "product_name",
+      "fieldtype": "Data",
+      "label": "Product Name",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "missing_type",
+      "fieldtype": "Select",
+      "label": "Type",
+      "options": "Product\nVariant",
+      "reqd": 1,
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "occurred_at",
+      "fieldtype": "Datetime",
+      "label": "Occurred At",
+      "default": "Now",
+      "in_list_view": 1,
+      "in_standard_filter": 1
+    },
+    {
+      "fieldname": "remarks",
+      "fieldtype": "Small Text",
+      "label": "Remarks"
+    }
+  ],
+  "index_web_pages_for_search": 1,
+  "links": [],
+  "modified": "2025-11-11 00:00:00",
+  "modified_by": "Administrator",
+  "module": "Salla Client",
+  "name": "Missing Products SKU",
+  "naming_rule": "Expression",
+  "owner": "Administrator",
+  "permissions": [
+    {
+      "create": 1,
+      "delete": 1,
+      "email": 1,
+      "export": 1,
+      "print": 1,
+      "read": 1,
+      "report": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+    }
+  ],
+  "sort_field": "modified",
+  "sort_order": "DESC",
+  "states": [],
+  "track_changes": 1
+}
+

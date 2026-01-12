@@ -1,6 +1,6 @@
 from frappe.model.document import Document
 
 
-class SKUSkipLog(Document):
+class SallaCustomerGroup(Document):
     pass
 

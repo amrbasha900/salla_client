@@ -9,18 +9,26 @@
   "engine": "InnoDB",
   "fields": [
     {
-      "fieldname": "reference_doctype",
+      "fieldname": "erp_doctype",
       "fieldtype": "Link",
-      "label": "Reference DocType",
-      "options": "DocType",
-      "reqd": 1
+      "label": "ERP DocType",
+      "options": "DocType"
     },
     {
-      "fieldname": "reference_name",
+      "fieldname": "erp_doc",
       "fieldtype": "Dynamic Link",
-      "label": "Reference Name",
-      "options": "reference_doctype",
-      "reqd": 1
+      "label": "ERP Doc",
+      "options": "erp_doctype"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Data",
+      "label": "Status"
+    },
+    {
+      "fieldname": "message",
+      "fieldtype": "Small Text",
+      "label": "Message"
     },
     {
       "fieldname": "warning_details",

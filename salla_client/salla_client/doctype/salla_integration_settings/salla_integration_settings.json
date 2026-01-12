@@ -1,0 +1,343 @@
+{
+    "actions": [],
+    "allow_rename": 0,
+    "creation": "2025-10-15 10:00:00",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+     "general_settings_section",
+     "enable_integration",
+     "enable_debug_logging",
+     "column_break_2",
+     "enable_webhooks",
+     "webhook_secret",
+     "sync_settings_section",
+     "sync_interval_minutes",
+     "max_retry_attempts",
+     "column_break_5",
+     "retry_delay_seconds",
+     "batch_size",
+     "product_sync_section",
+     "auto_create_items",
+     "update_item_price",
+     "column_break_8",
+     "update_item_stock",
+     "sync_product_images",
+     "order_sync_section",
+     "auto_create_sales_orders",
+     "auto_submit_sales_orders",
+     "column_break_11",
+     "update_order_status_to_salla",
+     "create_delivery_note_on_ship",
+     "customer_sync_section",
+     "auto_create_customers",
+     "column_break_14",
+     "default_customer_group",
+     "default_territory",
+     "inventory_sync_section",
+     "sync_stock_to_salla",
+     "stock_sync_interval_minutes",
+     "column_break_17",
+     "sync_price_to_salla",
+     "price_sync_interval_minutes",
+     "notification_section",
+     "notify_on_sync_failure",
+     "notification_email",
+     "column_break_20",
+     "notify_on_new_orders",
+     "api_settings_section",
+     "rate_limit_per_minute",
+     "request_timeout_seconds",
+     "column_break_23",
+     "use_exponential_backoff",
+     "max_backoff_seconds"
+    ],
+    "fields": [
+     {
+      "fieldname": "general_settings_section",
+      "fieldtype": "Section Break",
+      "label": "General Settings"
+     },
+     {
+      "default": "1",
+      "fieldname": "enable_integration",
+      "fieldtype": "Check",
+      "label": "Enable Integration"
+     },
+     {
+      "default": "0",
+      "fieldname": "enable_debug_logging",
+      "fieldtype": "Check",
+      "label": "Enable Debug Logging"
+     },
+     {
+      "fieldname": "column_break_2",
+      "fieldtype": "Column Break"
+     },
+     {
+      "default": "0",
+      "fieldname": "enable_webhooks",
+      "fieldtype": "Check",
+      "label": "Enable Webhooks"
+     },
+     {
+      "depends_on": "enable_webhooks",
+      "fieldname": "webhook_secret",
+      "fieldtype": "Password",
+      "label": "Webhook Secret"
+     },
+     {
+      "fieldname": "sync_settings_section",
+      "fieldtype": "Section Break",
+      "label": "Sync Settings"
+     },
+     {
+      "default": "30",
+      "description": "How often to sync data (in minutes)",
+      "fieldname": "sync_interval_minutes",
+      "fieldtype": "Int",
+      "label": "Sync Interval (Minutes)"
+     },
+     {
+      "default": "3",
+      "fieldname": "max_retry_attempts",
+      "fieldtype": "Int",
+      "label": "Max Retry Attempts"
+     },
+     {
+      "fieldname": "column_break_5",
+      "fieldtype": "Column Break"
+     },
+     {
+      "default": "5",
+      "fieldname": "retry_delay_seconds",
+      "fieldtype": "Int",
+      "label": "Retry Delay (Seconds)"
+     },
+     {
+      "default": "50",
+      "description": "Number of records to process per API call",
+      "fieldname": "batch_size",
+      "fieldtype": "Int",
+      "label": "Batch Size"
+     },
+     {
+      "collapsible": 1,
+      "fieldname": "product_sync_section",
+      "fieldtype": "Section Break",
+      "label": "Product Sync"
+     },
+     {
+      "default": "1",
+      "fieldname": "auto_create_items",
+      "fieldtype": "Check",
+      "label": "Auto Create Items"
+     },
+     {
+      "default": "1",
+      "fieldname": "update_item_price",
+      "fieldtype": "Check",
+      "label": "Update Item Price"
+     },
+     {
+      "fieldname": "column_break_8",
+      "fieldtype": "Column Break"
+     },
+     {
+      "default": "1",
+      "fieldname": "update_item_stock",
+      "fieldtype": "Check",
+      "label": "Update Item Stock"
+     },
+     {
+      "default": "0",
+      "fieldname": "sync_product_images",
+      "fieldtype": "Check",
+      "label": "Sync Product Images"
+     },
+     {
+      "collapsible": 1,
+      "fieldname": "order_sync_section",
+      "fieldtype": "Section Break",
+      "label": "Order Sync"
+     },
+     {
+      "default": "1",
+      "fieldname": "auto_create_sales_orders",
+      "fieldtype": "Check",
+      "label": "Auto Create Sales Orders"
+     },
+     {
+      "default": "0",
+      "fieldname": "auto_submit_sales_orders",
+      "fieldtype": "Check",
+      "label": "Auto Submit Sales Orders"
+     },
+     {
+      "fieldname": "column_break_11",
+      "fieldtype": "Column Break"
+     },
+     {
+      "default": "1",
+      "fieldname": "update_order_status_to_salla",
+      "fieldtype": "Check",
+      "label": "Update Order Status to Salla"
+     },
+     {
+      "default": "0",
+      "fieldname": "create_delivery_note_on_ship",
+      "fieldtype": "Check",
+      "label": "Create Delivery Note on Ship"
+     },
+     {
+      "collapsible": 1,
+      "fieldname": "customer_sync_section",
+      "fieldtype": "Section Break",
+      "label": "Customer Sync"
+     },
+     {
+      "default": "1",
+      "fieldname": "auto_create_customers",
+      "fieldtype": "Check",
+      "label": "Auto Create Customers"
+     },
+     {
+      "fieldname": "column_break_14",
+      "fieldtype": "Column Break"
+     },
+     {
+      "fieldname": "default_customer_group",
+      "fieldtype": "Link",
+      "label": "Default Customer Group",
+      "options": "Customer Group"
+     },
+     {
+      "fieldname": "default_territory",
+      "fieldtype": "Link",
+      "label": "Default Territory",
+      "options": "Territory"
+     },
+     {
+      "collapsible": 1,
+      "fieldname": "inventory_sync_section",
+      "fieldtype": "Section Break",
+      "label": "Inventory Sync (ERPNext → Salla)"
+     },
+     {
+      "default": "1",
+      "fieldname": "sync_stock_to_salla",
+      "fieldtype": "Check",
+      "label": "Sync Stock to Salla"
+     },
+     {
+      "default": "15",
+      "depends_on": "sync_stock_to_salla",
+      "fieldname": "stock_sync_interval_minutes",
+      "fieldtype": "Int",
+      "label": "Stock Sync Interval (Minutes)"
+     },
+     {
+      "fieldname": "column_break_17",
+      "fieldtype": "Column Break"
+     },
+     {
+      "default": "1",
+      "fieldname": "sync_price_to_salla",
+      "fieldtype": "Check",
+      "label": "Sync Price to Salla"
+     },
+     {
+      "default": "30",
+      "depends_on": "sync_price_to_salla",
+      "fieldname": "price_sync_interval_minutes",
+      "fieldtype": "Int",
+      "label": "Price Sync Interval (Minutes)"
+     },
+     {
+      "collapsible": 1,
+      "fieldname": "notification_section",
+      "fieldtype": "Section Break",
+      "label": "Notifications"
+     },
+     {
+      "default": "1",
+      "fieldname": "notify_on_sync_failure",
+      "fieldtype": "Check",
+      "label": "Notify on Sync Failure"
+     },
+     {
+      "depends_on": "notify_on_sync_failure",
+      "fieldname": "notification_email",
+      "fieldtype": "Data",
+      "label": "Notification Email"
+     },
+     {
+      "fieldname": "column_break_20",
+      "fieldtype": "Column Break"
+     },
+     {
+      "default": "0",
+      "fieldname": "notify_on_new_orders",
+      "fieldtype": "Check",
+      "label": "Notify on New Orders"
+     },
+     {
+      "collapsible": 1,
+      "fieldname": "api_settings_section",
+      "fieldtype": "Section Break",
+      "label": "API Settings"
+     },
+     {
+      "default": "60",
+      "fieldname": "rate_limit_per_minute",
+      "fieldtype": "Int",
+      "label": "Rate Limit Per Minute"
+     },
+     {
+      "default": "30",
+      "fieldname": "request_timeout_seconds",
+      "fieldtype": "Int",
+      "label": "Request Timeout (Seconds)"
+     },
+     {
+      "fieldname": "column_break_23",
+      "fieldtype": "Column Break"
+     },
+     {
+      "default": "1",
+      "fieldname": "use_exponential_backoff",
+      "fieldtype": "Check",
+      "label": "Use Exponential Backoff"
+     },
+     {
+      "default": "300",
+      "depends_on": "use_exponential_backoff",
+      "fieldname": "max_backoff_seconds",
+      "fieldtype": "Int",
+      "label": "Max Backoff (Seconds)"
+     }
+    ],
+    "issingle": 1,
+    "links": [],
+    "modified": "2025-10-15 10:00:00",
+    "modified_by": "Administrator",
+    "module": "Salla Client",
+    "name": "Salla Integration Settings",
+    "owner": "Administrator",
+    "permissions": [
+     {
+      "create": 1,
+      "email": 1,
+      "print": 1,
+      "read": 1,
+      "role": "System Manager",
+      "share": 1,
+      "write": 1
+     }
+    ],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "states": [],
+    "track_changes": 1
+   }
+

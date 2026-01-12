@@ -7,6 +7,14 @@
   "doctype": "DocType",
   "editable_grid": 0,
   "engine": "InnoDB",
+  "field_order": [
+    "store_id",
+    "entity_type",
+    "external_id",
+    "sku",
+    "reason",
+    "created_at"
+  ],
   "fields": [
     {
       "fieldname": "store_id",
@@ -32,16 +40,18 @@
       "label": "SKU"
     },
     {
+      "default": "missing_sku",
       "fieldname": "reason",
-      "fieldtype": "Small Text",
+      "fieldtype": "Select",
       "label": "Reason",
+      "options": "missing_sku\nunsupported",
       "reqd": 1
     },
     {
+      "default": "now",
       "fieldname": "created_at",
       "fieldtype": "Datetime",
       "label": "Created At",
-      "default": "now",
       "read_only": 1
     }
   ],
