@@ -1,163 +1,160 @@
 {
-  "actions": [],
-  "allow_rename": 1,
-  "autoname": "field:store_id",
-  "creation": "2026-01-01 00:00:00.000000",
-  "doctype": "DocType",
-  "engine": "InnoDB",
-  "field_order": [
-    "basic_section",
-    "store_id",
-    "store_name",
-    "store_domain",
-    "status",
-    "column_break_basic",
-    "merchant_id",
-    "is_authorized",
-    "plan",
-    "company",
-    "warehouse",
-    "price_list",
-    "default_customer_group",
-    "default_territory",
-    "shipping_cost_item",
-    "cash_on_delivery_fee_item",
-    "taxes_section",
-    "salla_store_tax",
-    "stock_section",
-    "warehouses_and_branches"
-  ],
-  "fields": [
-    {
-      "fieldname": "basic_section",
-      "fieldtype": "Section Break",
-      "label": "Basic"
-    },
-    {
-      "fieldname": "store_id",
-      "fieldtype": "Data",
-      "label": "Store ID",
-      "reqd": 1,
-      "unique": 1,
-      "in_list_view": 1,
-      "search_index": 1
-    },
-    {
-      "fieldname": "store_name",
-      "fieldtype": "Data",
-      "label": "Store Name",
-      "in_list_view": 1
-    },
-    {
-      "fieldname": "store_domain",
-      "fieldtype": "Data",
-      "label": "Store Domain"
-    },
-    {
-      "fieldname": "status",
-      "fieldtype": "Data",
-      "label": "Status"
-    },
-    {
-      "fieldname": "column_break_basic",
-      "fieldtype": "Column Break"
-    },
-    {
-      "fieldname": "merchant_id",
-      "fieldtype": "Data",
-      "label": "Merchant ID",
-      "read_only": 1
-    },
-    {
-      "default": "0",
-      "fieldname": "is_authorized",
-      "fieldtype": "Check",
-      "label": "Authorized"
-    },
-    {
-      "fieldname": "plan",
-      "fieldtype": "Data",
-      "label": "Plan"
-    },
-    {
-      "fieldname": "company",
-      "fieldtype": "Data",
-      "label": "Company"
-    },
-    {
-      "fieldname": "warehouse",
-      "fieldtype": "Data",
-      "label": "Default Warehouse"
-    },
-    {
-      "fieldname": "price_list",
-      "fieldtype": "Data",
-      "label": "Price List"
-    },
-    {
-      "fieldname": "default_customer_group",
-      "fieldtype": "Data",
-      "label": "Default Customer Group"
-    },
-    {
-      "fieldname": "default_territory",
-      "fieldtype": "Data",
-      "label": "Default Territory"
-    },
-    {
-      "fieldname": "shipping_cost_item",
-      "fieldtype": "Data",
-      "label": "Shipping Cost Item"
-    },
-    {
-      "fieldname": "cash_on_delivery_fee_item",
-      "fieldtype": "Data",
-      "label": "COD Fee Item"
-    },
-    {
-      "fieldname": "taxes_section",
-      "fieldtype": "Section Break",
-      "label": "Taxes"
-    },
-    {
-      "fieldname": "salla_store_tax",
-      "fieldtype": "Table",
-      "label": "Taxes",
-      "options": "Salla Store Tax"
-    },
-    {
-      "fieldname": "stock_section",
-      "fieldtype": "Section Break",
-      "label": "Warehouses and Branches"
-    },
-    {
-      "fieldname": "warehouses_and_branches",
-      "fieldtype": "Table",
-      "label": "Warehouses and Branches",
-      "options": "Salla Store Warehouses and Branches"
-    }
-  ],
-  "index_web_pages_for_search": 1,
-  "links": [],
-  "module": "Salla Client",
-  "name": "Salla Store",
-  "owner": "Administrator",
-  "permissions": [
-    {
-      "create": 1,
-      "delete": 1,
-      "email": 1,
-      "export": 1,
-      "print": 1,
-      "read": 1,
-      "report": 1,
-      "role": "System Manager",
-      "share": 1,
-      "write": 1
-    }
-  ],
-  "sort_field": "modified",
-  "sort_order": "DESC",
-  "title_field": "store_name"
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:store_id",
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "basic_section",
+  "store_id",
+  "merchant_id",
+  "store_name",
+  "store_domain",
+  "status",
+  "column_break_basic",
+  "is_authorized",
+  "plan",
+  "company",
+  "warehouse",
+  "default_customer_group",
+  "shipping_cost_item",
+  "cash_on_delivery_fee_item",
+  "taxes_section",
+  "salla_store_tax",
+  "stock_section",
+  "warehouses_and_branches"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic_section",
+   "fieldtype": "Section Break",
+   "label": "Basic"
+  },
+  {
+   "fieldname": "store_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Store ID",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "store_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Store Name"
+  },
+  {
+   "fieldname": "store_domain",
+   "fieldtype": "Data",
+   "label": "Store Domain"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "label": "Status"
+  },
+  {
+   "fieldname": "column_break_basic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "merchant_id",
+   "fieldtype": "Data",
+   "label": "Merchant ID",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_authorized",
+   "fieldtype": "Check",
+   "label": "Authorized"
+  },
+  {
+   "fieldname": "plan",
+   "fieldtype": "Data",
+   "label": "Plan"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Default Warehouse",
+   "link_filters": "[[\"Warehouse\",\"is_group\",\"=\",0]]",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "default_customer_group",
+   "fieldtype": "Link",
+   "label": "Default Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "fieldname": "shipping_cost_item",
+   "fieldtype": "Link",
+   "label": "Shipping Cost Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "cash_on_delivery_fee_item",
+   "fieldtype": "Link",
+   "label": "COD Fee Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "taxes_section",
+   "fieldtype": "Section Break",
+   "label": "Taxes"
+  },
+  {
+   "fieldname": "salla_store_tax",
+   "fieldtype": "Table",
+   "label": "Taxes",
+   "options": "Salla Store Tax"
+  },
+  {
+   "fieldname": "stock_section",
+   "fieldtype": "Section Break",
+   "label": "Warehouses and Branches"
+  },
+  {
+   "fieldname": "warehouses_and_branches",
+   "fieldtype": "Table",
+   "label": "Warehouses and Branches",
+   "options": "Salla Store Warehouses and Branches"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-13 14:43:00.711422",
+ "modified_by": "Administrator",
+ "module": "Salla Client",
+ "name": "Salla Store",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "store_name"
 }
-
