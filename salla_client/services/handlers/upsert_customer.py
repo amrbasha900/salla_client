@@ -17,6 +17,24 @@ from .common import (
 from .result import ClientApplyResult
 
 
+def _fallback_customer_name(payload: dict[str, Any], external_id: str | None, store_id: str | None) -> str:
+    """Ensure a non-empty customer_name for mandatory validation."""
+    candidates = [
+        payload.get("name"),
+        payload.get("full_name"),
+        payload.get("first_name"),
+        payload.get("email"),
+        payload.get("phone"),
+        external_id,
+        store_id,
+    ]
+    for val in candidates:
+        if val:
+            return str(val)
+    # absolute last resort
+    return "Salla Customer"
+
+
 def upsert_customer(store_id: str, payload: dict[str, Any]) -> dict[str, Any]:
     external_id = payload.get("external_id")
     existing_name = get_existing_doc_name("Customer", external_id)
@@ -26,7 +44,7 @@ def upsert_customer(store_id: str, payload: dict[str, Any]) -> dict[str, Any]:
     else:
         doc = frappe.get_doc("Customer", existing_name)
 
-    doc.customer_name = payload.get("name") or payload.get("email") or payload.get("phone")
+    doc.customer_name = _fallback_customer_name(payload, external_id, store_id)
     doc.customer_group = ensure_customer_group(payload)
     doc.territory = payload.get("territory") or "All Territories"
     doc.customer_type = payload.get("customer_type") or "Individual"

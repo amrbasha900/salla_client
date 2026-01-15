@@ -12,6 +12,8 @@
   "store_name",
   "store_domain",
   "status",
+  "selling_price_list",
+  "buying_price_list",
   "column_break_basic",
   "is_authorized",
   "plan",
@@ -128,11 +130,25 @@
    "fieldtype": "Table",
    "label": "Warehouses and Branches",
    "options": "Salla Store Warehouses and Branches"
+  },
+  {
+   "fieldname": "selling_price_list",
+   "fieldtype": "Link",
+   "label": "Selling Price List",
+   "link_filters": "[[\"Price List\",\"selling\",\"=\",1]]",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "buying_price_list",
+   "fieldtype": "Link",
+   "label": "Buying Price List",
+   "link_filters": "[[\"Price List\",\"buying\",\"=\",1]]",
+   "options": "Price List"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-13 14:43:00.711422",
+ "modified": "2026-01-15 13:05:25.102201",
  "modified_by": "Administrator",
  "module": "Salla Client",
  "name": "Salla Store",
