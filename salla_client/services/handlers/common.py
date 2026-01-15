@@ -104,7 +104,11 @@ def resolve_store_link(store_id_from_payload: str | None, fallback_store_id: str
         if not candidate:
             continue
         try:
+            # First try store_id field (numeric Salla ID)
             if frappe.db.exists(STORE_LINK_DOCTYPE, {"store_id": candidate}):
+                return candidate
+            # Then try by document name (in case name already equals store_id)
+            if frappe.db.exists(STORE_LINK_DOCTYPE, candidate):
                 return candidate
         except Exception:
             continue

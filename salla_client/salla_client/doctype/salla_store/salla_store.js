@@ -35,6 +35,8 @@ frappe.ui.form.on("Salla Store", {
 										"variants",
 										"product_options",
 										"categories",
+										"order_statuses",
+										"customer_groups",
 										"brands",
 										"customers",
 										"orders",

@@ -5,7 +5,7 @@ import json
 
 import frappe
 
-from .common import finalize_result
+from .common import finalize_result, resolve_store_link
 from .result import ClientApplyResult
 
 
@@ -51,6 +51,15 @@ def _compose_attribute_name(option_name: str, option_id: Optional[str], product_
 
 def _add_attribute_custom_fields():
     """Ensure custom fields for Item Attribute/Value exist (idempotent)."""
+    # If fields already exist, skip creation to avoid permission errors
+    try:
+        meta_attr = frappe.get_meta("Item Attribute")
+        meta_val = frappe.get_meta("Item Attribute Value")
+        if meta_attr.has_field("salla_option_id") and meta_attr.has_field("salla_store") and meta_attr.has_field("product_sku") and meta_val.has_field("salla_option_value_id"):
+            return
+    except Exception:
+        pass
+
     try:
         from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
@@ -67,7 +76,8 @@ def _add_attribute_custom_fields():
                     {
                         "fieldname": "salla_store",
                         "label": "Salla Store",
-                        "fieldtype": "Data",
+                        "fieldtype": "Link",
+                        "options": "Salla Store",
                         "insert_after": "salla_option_id",
                         "read_only": 1,
                     },
@@ -91,6 +101,9 @@ def _add_attribute_custom_fields():
             },
             update=True,
         )
+    except frappe.PermissionError:
+        # Best effort: log and continue without failing option upsert
+        frappe.log_error("Insufficient permission to create Item Attribute custom fields; proceeding without creation", "Salla Client: add attribute custom fields skipped")
     except Exception:
         # best-effort; don't block command processing
         frappe.log_error(frappe.get_traceback(), "Salla Client: add attribute custom fields failed")
@@ -131,7 +144,7 @@ def ensure_item_attribute_for_option(
     # Set custom mappings if fields exist
     if attr_doc.meta.has_field("salla_option_id"):
         attr_doc.salla_option_id = option_id
-    if attr_doc.meta.has_field("salla_store"):
+    if attr_doc.meta.has_field("salla_store") and store_id and frappe.db.exists("Salla Store", store_id):
         attr_doc.salla_store = store_id
     if attr_doc.meta.has_field("product_sku"):
         attr_doc.product_sku = product_sku
@@ -190,18 +203,28 @@ def upsert_product_option(store_id: str, payload: dict[str, Any]) -> dict[str, A
         result.add_error("missing_ids", "option_id and product_id are required.")
         return result.as_dict()
 
+    target_store = resolve_store_link(payload.get("store_id"), store_id)
+    product_sku = payload.get("product_sku")
+
+    # Prefer match by store+product+option; fallback to product+option to avoid duplicates from missing store link.
     existing = frappe.db.get_value(
         "Salla Product Option",
-        {"store_id": store_id, "product_id": product_id, "option_id": option_id},
+        {"store_id": target_store or store_id, "product_id": product_id, "option_id": option_id},
         "name",
     )
+    if not existing:
+        existing = frappe.db.get_value(
+            "Salla Product Option",
+            {"product_id": product_id, "option_id": option_id},
+            "name",
+        )
     created = existing is None
     if created:
         doc = frappe.get_doc({"doctype": "Salla Product Option"})
     else:
         doc = frappe.get_doc("Salla Product Option", existing)
 
-    doc.store_id = store_id
+    doc.store_id = target_store or store_id
     doc.product_id = product_id
     doc.option_id = option_id
     doc.option_name = payload.get("option_name") or payload.get("name") or option_id
@@ -210,23 +233,32 @@ def upsert_product_option(store_id: str, payload: dict[str, Any]) -> dict[str, A
 
     # Merge values (preserve existing rows, append/update)
     incoming_values = _ensure_values(payload.get("values"))
-    existing_rows = {row.label: row for row in (doc.get("values") or []) if getattr(row, "label", None)}
+    # Merge by value_id first, then label as fallback to avoid duplicates
+    existing_rows_by_id = {row.value_id: row for row in (doc.get("values") or []) if getattr(row, "value_id", None)}
+    existing_rows_by_label = {row.label: row for row in (doc.get("values") or []) if getattr(row, "label", None)}
     new_table = []
     for inc in incoming_values:
+        vid = inc.get("value_id")
         lbl = inc.get("label")
-        if lbl and lbl in existing_rows:
-            row = existing_rows[lbl]
-            # update missing bits
+        row = None
+        if vid and vid in existing_rows_by_id:
+            row = existing_rows_by_id[vid]
+        elif lbl and lbl in existing_rows_by_label:
+            row = existing_rows_by_label[lbl]
+        if row:
             row.value_id = row.value_id or inc.get("value_id")
             row.display_value = row.display_value or inc.get("display_value")
             row.hashed_display_value = row.hashed_display_value or inc.get("hashed_display_value")
             row.is_default = row.is_default or inc.get("is_default")
-            new_table.append(row)
+            if row not in new_table:
+                new_table.append(row)
         else:
             new_table.append(inc)
     # preserve any existing rows that had no label match
     for row in doc.get("values") or []:
-        if getattr(row, "label", None) and row.label in existing_rows:
+        if getattr(row, "value_id", None) and row.value_id in {r.get("value_id") for r in incoming_values}:
+            continue
+        if getattr(row, "label", None) and row.label in {r.get("label") for r in incoming_values}:
             continue
         if row not in new_table:
             new_table.append(row)
@@ -239,7 +271,7 @@ def upsert_product_option(store_id: str, payload: dict[str, Any]) -> dict[str, A
 
     # Also ensure ERPNext Item Attribute/Value exists for this option
     try:
-        ensure_item_attribute_for_option(store_id, payload, payload.get("product_sku"))
+        ensure_item_attribute_for_option(target_store, payload, product_sku)
     except Exception:
         frappe.log_error(frappe.get_traceback(), "Salla Client: ensure item attribute for option failed")
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 import json
 
+from erpnext.controllers.item_variant import create_variant
 from salla_client.services.handlers.upsert_product_option import (
     _compose_attribute_name,
     ensure_item_attribute_for_option,
@@ -20,6 +21,13 @@ from .common import (
     sku_missing_result,
 )
 from .result import ClientApplyResult
+
+
+def _as_str(val: Any) -> str:
+    """Ensure item codes/names are strings to satisfy ERPNext autoname."""
+    if val is None:
+        return ""
+    return str(val)
 
 INACTIVE_STATUSES = {"inactive", "hidden", "draft", "deleted"}
 
@@ -62,7 +70,7 @@ def upsert_variant(store_id: str, payload: dict[str, Any]) -> dict[str, Any]:
         return sku_missing_result(store_id, "variant", external_id, sku=sku).as_dict()
 
     product_external_id = payload.get("product_id")
-    template_name = get_existing_doc_name("Item", product_external_id)
+    template_name = _ensure_template_item(store_id, payload)
     if not template_name:
         result = ClientApplyResult(status="failed")
         result.add_error(
@@ -80,8 +88,8 @@ def upsert_variant(store_id: str, payload: dict[str, Any]) -> dict[str, Any]:
         doc = frappe.get_doc("Item", existing_name)
 
     template_doc = frappe.get_doc("Item", template_name)
-    doc.item_code = sku
-    doc.item_name = payload.get("name") or sku
+    doc.item_code = _as_str(sku)
+    doc.item_name = payload.get("name") or _as_str(sku)
     doc.variant_of = template_doc.name
     doc.item_group = template_doc.item_group
     doc.stock_uom = payload.get("uom") or template_doc.get("stock_uom") or "Nos"
@@ -112,8 +120,22 @@ def upsert_variant(store_id: str, payload: dict[str, Any]) -> dict[str, Any]:
     # Build attribute rows so ERPNext variant validation passes
     attributes: list[dict[str, str]] = []
     parent_sku = template_doc.get("item_code")
+
+    # Helper to add attribute-value pair safely
+    def _add_attr(attr_name: str | None, value_label: str | None):
+        if not attr_name or not value_label:
+            return
+        _ensure_attribute_value(attr_name, value_label)
+        attributes.append(
+            {
+                "attribute": attr_name,
+                "attribute_value": value_label,
+                "abbr": value_label[:140],
+            }
+        )
+
+    # First, map from explicit option payload
     for opt in payload.get("options") or []:
-        # Ensure Item Attribute + values exist (mirrors product option handler)
         try:
             attr_name, ensured_value = ensure_item_attribute_for_option(
                 target_store,
@@ -136,33 +158,137 @@ def upsert_variant(store_id: str, payload: dict[str, Any]) -> dict[str, Any]:
             or opt.get("display_value")
             or ensured_value
         )
-        if not value_label:
-            continue
-        _ensure_attribute_value(attr_name, value_label)
-        attributes.append(
-            {
-                "attribute": attr_name,
-                "attribute_value": value_label,
-                "abbr": value_label[:140],
-            }
-        )
+        _add_attr(attr_name, value_label)
+
+    # If no options came through, map related_option_values to attribute values (old flow parity)
+    if not attributes:
+        value_map = _build_value_map_from_item_attributes(parent_sku, target_store)
+        for vid in payload.get("related_option_values") or []:
+            vid_str = str(vid)
+            if vid_str in value_map:
+                attr_name, val_label = value_map[vid_str]
+                _add_attr(attr_name, val_label)
 
     if attributes:
         doc.variant_based_on = "Item Attribute"
         doc.set("attributes", attributes)
 
-    if created:
-        _prev_in_patch = getattr(frappe.flags, "in_patch", False)
-        _prev_ignore_perms = getattr(frappe.flags, "ignore_permissions", False)
-        try:
-            frappe.flags.in_patch = True  # bypass Item after_insert price permission
-            frappe.flags.ignore_permissions = True
-            doc.insert(ignore_permissions=True)
-        finally:
-            frappe.flags.in_patch = _prev_in_patch
-            frappe.flags.ignore_permissions = _prev_ignore_perms
-    else:
-        doc.save(ignore_permissions=True)
+    # Use ERPNext's create_variant to mirror old flow; fall back to manual insert when needed.
+    try:
+        if created:
+            args = {row["attribute"]: row["attribute_value"] for row in (doc.get("attributes") or []) if row.get("attribute") and row.get("attribute_value")}
+            if args:
+                variant = create_variant(template_doc.name, args)
+                # copy custom fields
+                set_external_id(variant, external_id)
+                set_if_field(variant, "salla_is_from_salla", 1)
+                set_if_field(variant, "salla_store", target_store)
+                set_if_field(variant, "salla_product_id", payload.get("product_id"))
+                set_if_field(variant, "salla_sku", sku)
+                set_if_field(variant, "salla_last_synced", now_datetime())
+                set_if_field(variant, "salla_options", json.dumps(payload.get("options") or [], ensure_ascii=False))
+                set_if_field(variant, "default_warehouse", payload.get("warehouse"))
+                set_if_field(variant, "barcode", payload.get("barcode"))
+                variant.save(ignore_permissions=True)
+                doc = variant
+            else:
+                # No attributes; fall back to insert/save
+                doc.flags.ignore_after_insert = True
+                doc.insert(ignore_permissions=True)
+        else:
+            doc.save(ignore_permissions=True)
+    except Exception:
+        # Fallback path to ensure variant is created even if create_variant fails
+        if created:
+            _prev_in_patch = getattr(frappe.flags, "in_patch", False)
+            _prev_ignore_perms = getattr(frappe.flags, "ignore_permissions", False)
+            try:
+                frappe.flags.in_patch = True
+                frappe.flags.ignore_permissions = True
+                doc.flags.ignore_after_insert = True
+                doc.insert(ignore_permissions=True)
+            finally:
+                frappe.flags.in_patch = _prev_in_patch
+                frappe.flags.ignore_permissions = _prev_ignore_perms
+        else:
+            doc.save(ignore_permissions=True)
 
     result = ClientApplyResult(status="applied", erp_doctype="Item")
     return finalize_result(result, doc, created).as_dict()
+
+
+def _ensure_template_item(store_id: str, payload: dict[str, Any]) -> str | None:
+    """Ensure a template Item exists for the given product_id; create minimal stub if missing."""
+    product_external_id = payload.get("product_id")
+    template_name = get_existing_doc_name("Item", product_external_id)
+    if template_name:
+        return template_name
+
+    # Attempt reuse by item_code if a non-variant item exists
+    candidate_code = payload.get("product_sku") or product_external_id
+    candidate_code_str = _as_str(candidate_code or product_external_id)
+    if candidate_code_str and frappe.db.exists("Item", {"item_code": candidate_code_str, "variant_of": ""}):
+        doc = frappe.get_doc("Item", candidate_code_str)
+        set_external_id(doc, product_external_id)
+        if hasattr(doc, "has_variants"):
+            doc.has_variants = 1
+        set_if_field(doc, "salla_is_from_salla", 1)
+        target_store = resolve_store_link(payload.get("store_id"), store_id)
+        set_if_field(doc, "salla_store", target_store or store_id)
+        set_if_field(doc, "salla_product_id", product_external_id)
+        doc.save(ignore_permissions=True)
+        return doc.name
+
+    # Create a minimal template
+    doc = frappe.get_doc({"doctype": "Item"})
+    doc.item_code = candidate_code_str or _as_str(product_external_id)
+    doc.item_name = payload.get("product_name") or doc.item_code or _as_str(product_external_id)
+    doc.item_group = "All Item Groups"
+    doc.stock_uom = payload.get("uom") or "Nos"
+    doc.is_stock_item = 1
+    if hasattr(doc, "has_variants"):
+        doc.has_variants = 1
+    set_external_id(doc, product_external_id)
+    set_if_field(doc, "salla_is_from_salla", 1)
+    target_store = resolve_store_link(payload.get("store_id"), store_id)
+    set_if_field(doc, "salla_store", target_store or store_id)
+    set_if_field(doc, "salla_product_id", product_external_id)
+    _prev_in_patch = getattr(frappe.flags, "in_patch", False)
+    _prev_ignore_perms = getattr(frappe.flags, "ignore_permissions", False)
+    try:
+        frappe.flags.in_patch = True
+        frappe.flags.ignore_permissions = True
+        doc.flags.ignore_after_insert = True
+        doc.insert(ignore_permissions=True)
+    finally:
+        frappe.flags.in_patch = _prev_in_patch
+        frappe.flags.ignore_permissions = _prev_ignore_perms
+    return doc.name
+
+
+def _build_value_map_from_item_attributes(product_sku: str | None, store_id: str | None) -> dict[str, tuple[str, str]]:
+    """
+    Map salla_option_value_id -> (attribute_name, attribute_value) using Item Attribute data.
+    """
+    value_map: dict[str, tuple[str, str]] = {}
+    if not product_sku:
+        return value_map
+    filters = {"product_sku": product_sku}
+    if store_id:
+        filters["salla_store"] = store_id
+    try:
+        attrs = frappe.get_all("Item Attribute", filters=filters, fields=["name", "attribute_name"])
+        for row in attrs:
+            try:
+                doc = frappe.get_doc("Item Attribute", row["name"])
+            except Exception:
+                continue
+            attr_name = doc.attribute_name
+            for val in doc.item_attribute_values or []:
+                vid = getattr(val, "salla_option_value_id", None)
+                lbl = getattr(val, "attribute_value", None)
+                if vid and lbl:
+                    value_map[str(vid)] = (attr_name, lbl)
+    except Exception:
+        pass
+    return value_map
