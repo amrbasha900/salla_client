@@ -17,6 +17,7 @@ from .common import (
 )
 from salla_client.services.handlers.upsert_product_option import (
     ensure_item_attribute_for_option,
+    upsert_product_option,
     _compose_attribute_name,
 )
 from .result import ClientApplyResult
@@ -39,6 +40,12 @@ def _normalize_price(value: Any) -> float | None:
         return float(value)
     except Exception:
         return None
+
+
+def _as_str(value: Any) -> str | None:
+    if value in (None, ""):
+        return None
+    return str(value)
 
 
 def _upsert_item_price(item_code: str, price_list: str, price: float) -> None:
@@ -211,8 +218,8 @@ def upsert_product(store_id: str, payload: dict[str, Any], allow_bundle: bool = 
     else:
         doc = frappe.get_doc("Item", existing_name)
 
-    doc.item_code = sku
-    doc.item_name = payload.get("name") or sku
+    doc.item_code = _as_str(sku)
+    doc.item_name = payload.get("name") or _as_str(sku)
     doc.description = payload.get("description") or doc.get("description")
     doc.item_group = ensure_item_group(payload)
     doc.disabled = 1 if str(payload.get("status")).lower() in INACTIVE_STATUSES else 0
@@ -269,6 +276,19 @@ def upsert_product(store_id: str, payload: dict[str, Any], allow_bundle: bool = 
                 if attr["attribute"] not in existing_names:
                     merged.append(attr)
             doc.set("attributes", merged)
+    # Ensure Salla Product Option docs exist for each option (old flow parity)
+    for opt in options:
+        if not isinstance(opt, dict):
+            continue
+        try:
+            option_payload = dict(opt)
+            option_payload.setdefault("product_id", external_id)
+            option_payload.setdefault("product_external_id", external_id)
+            option_payload.setdefault("product_sku", sku)
+            option_payload.setdefault("store_id", payload.get("store_id") or store_id)
+            upsert_product_option(target_store or store_id, option_payload)
+        except Exception:
+            frappe.log_error(frappe.get_traceback(), "Salla Client: upsert product option failed")
     set_external_id(doc, external_id)
     # legacy fields (old salla_integration schema)
     set_if_field(doc, "salla_is_from_salla", 1)
@@ -314,16 +334,17 @@ def upsert_product(store_id: str, payload: dict[str, Any], allow_bundle: bool = 
     else:
         doc.save(ignore_permissions=True)
 
-    store_doc = _get_store_doc(target_store, payload.get("store_id"), store_id)
-    if store_doc:
-        raw_payload = payload.get("raw")
-        if isinstance(raw_payload, str):
-            try:
-                raw_payload = json.loads(raw_payload)
-            except Exception:
-                raw_payload = None
-        if not isinstance(raw_payload, dict):
-            raw_payload = {}
+    raw_payload = payload.get("raw")
+    if isinstance(raw_payload, str):
+        try:
+            raw_payload = json.loads(raw_payload)
+        except Exception:
+            raw_payload = None
+    if not isinstance(raw_payload, dict):
+        raw_payload = {}
+
+    store_doc = _get_store_doc(target_store, payload.get("store_id"), store_id, raw_payload.get("store_id"))
+    if store_doc and not getattr(doc, "has_variants", 0):
 
         sale_price = payload.get("sale_price")
         if sale_price in (None, ""):
@@ -343,6 +364,15 @@ def upsert_product(store_id: str, payload: dict[str, Any], allow_bundle: bool = 
         buying_price_list = store_doc.get("buying_price_list")
         selling_rate = _normalize_price(sale_price)
         buying_rate = _normalize_price(cost_price)
+        if created:
+            if selling_rate is None:
+                selling_rate = 0.0
+            if buying_rate is None:
+                buying_rate = 0.0
+        if created and selling_rate is None:
+            selling_rate = 0.0
+        if created and buying_rate is None:
+            buying_rate = 0.0
         item_code = doc.item_code
         if selling_price_list and selling_rate is not None:
             try:

@@ -157,7 +157,6 @@ def ensure_item_attribute_for_option(
         or option.get("value")
         or option.get("label")
         or option.get("display_value")
-        or option.get("name")
     )
     # If selected value present but not in values list, append it to list for creation
     if selected_value and not option_values:
@@ -190,6 +189,16 @@ def ensure_item_attribute_for_option(
                 "salla_option_value_id"
             ):
                 row.salla_option_value_id = str(val.get("id"))
+
+    # Cleanup: remove accidental option-name-as-value rows
+    if option_name:
+        cleaned = []
+        for row in attr_doc.item_attribute_values or []:
+            if row.attribute_value == option_name and not getattr(row, "salla_option_value_id", None):
+                continue
+            cleaned.append(row)
+        if len(cleaned) != len(attr_doc.item_attribute_values or []):
+            attr_doc.set("item_attribute_values", cleaned)
 
     attr_doc.save(ignore_permissions=True)
     return attr_name, selected_value or None
