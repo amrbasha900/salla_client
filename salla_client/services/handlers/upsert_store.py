@@ -33,6 +33,7 @@ def _build_branches(branches: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             continue
         out.append(
             {
+                "salla_id": row.get("branch_id") or row.get("id"),
                 "branch_name": row.get("branch_name") or row.get("name"),
                 "type": row.get("type"),
                 "status": row.get("status"),

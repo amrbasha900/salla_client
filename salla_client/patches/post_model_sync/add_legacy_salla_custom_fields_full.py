@@ -294,6 +294,20 @@ def execute():
                 "insert_after": "salla_sync_status",
                 "read_only": 1,
             },
+            {
+                "fieldname": "salla_cancelled",
+                "label": "Salla Cancelled",
+                "fieldtype": "Check",
+                "insert_after": "salla_last_synced",
+                "read_only": 1,
+            },
+            {
+                "fieldname": "salla_deleted",
+                "label": "Salla Deleted",
+                "fieldtype": "Check",
+                "insert_after": "salla_cancelled",
+                "read_only": 1,
+            },
         ],
         "Customer": [
             {

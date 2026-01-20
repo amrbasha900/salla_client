@@ -1,0 +1,172 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2026-01-20 02:46:36.803321",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_basic",
+  "store_id",
+  "external_id",
+  "sku",
+  "item",
+  "column_break_basic",
+  "product_name",
+  "variant",
+  "image",
+  "created_at",
+  "section_break_qty",
+  "old_quantity",
+  "new_quantity",
+  "unlimited_quantity",
+  "reason",
+  "section_break_user",
+  "user_id",
+  "user_type",
+  "user_first_name",
+  "section_break_raw",
+  "raw"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_basic",
+   "fieldtype": "Section Break",
+   "label": "Quantity Audit"
+  },
+  {
+   "fieldname": "store_id",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Store ID",
+   "options": "Salla Store"
+  },
+  {
+   "fieldname": "external_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Audit ID"
+  },
+  {
+   "fieldname": "sku",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "SKU"
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_basic",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "product_name",
+   "fieldtype": "Data",
+   "label": "Product Name"
+  },
+  {
+   "fieldname": "variant",
+   "fieldtype": "Data",
+   "label": "Variant"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Data",
+   "label": "Image URL"
+  },
+  {
+   "fieldname": "created_at",
+   "fieldtype": "Datetime",
+   "label": "Created At"
+  },
+  {
+   "fieldname": "section_break_qty",
+   "fieldtype": "Section Break",
+   "label": "Quantities"
+  },
+  {
+   "fieldname": "old_quantity",
+   "fieldtype": "Int",
+   "label": "Old Quantity"
+  },
+  {
+   "fieldname": "new_quantity",
+   "fieldtype": "Int",
+   "label": "New Quantity"
+  },
+  {
+   "default": "0",
+   "fieldname": "unlimited_quantity",
+   "fieldtype": "Check",
+   "label": "Unlimited Quantity"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Data",
+   "label": "Reason"
+  },
+  {
+   "fieldname": "section_break_user",
+   "fieldtype": "Section Break",
+   "label": "User"
+  },
+  {
+   "fieldname": "user_id",
+   "fieldtype": "Data",
+   "label": "User ID"
+  },
+  {
+   "fieldname": "user_type",
+   "fieldtype": "Data",
+   "label": "User Type"
+  },
+  {
+   "fieldname": "user_first_name",
+   "fieldtype": "Data",
+   "label": "User First Name"
+  },
+  {
+   "fieldname": "section_break_raw",
+   "fieldtype": "Section Break",
+   "label": "Raw Payload"
+  },
+  {
+   "fieldname": "raw",
+   "fieldtype": "Code",
+   "label": "Raw",
+   "options": "JSON"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-20 13:53:19.892281",
+ "modified_by": "Administrator",
+ "module": "Salla Client",
+ "name": "Salla Product Quantity Transaction",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "sku"
+}

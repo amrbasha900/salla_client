@@ -15,6 +15,10 @@ from frappe.utils import now_datetime
 from salla_client.services.handlers.upsert_customer import upsert_customer
 from salla_client.services.handlers.upsert_order import upsert_order
 from salla_client.services.handlers.upsert_product import upsert_product
+from salla_client.services.handlers.upsert_product_quantity_transaction import (
+    upsert_product_quantity_transaction,
+)
+from salla_client.services.handlers.upsert_product_quantities import upsert_product_quantities
 from salla_client.services.handlers.upsert_variant import upsert_variant
 
 SKIPPED_REASON_DISABLED = "disabled_by_client_settings"
@@ -26,6 +30,8 @@ COMMAND_TOGGLE_MAP = {
     "upsert_category": "enable_push_receive_products",
     "upsert_brand": "enable_push_receive_products",
     "upsert_product_option": "enable_push_receive_products",
+    "upsert_product_quantity_transaction": "enable_push_receive_products",
+    "upsert_product_quantities": "enable_push_receive_products",
     "upsert_customer_group": "enable_push_receive_products",
     "upsert_store": "enable_push_receive_products",
     "upsert_order": "enable_push_receive_orders",
@@ -39,6 +45,8 @@ HANDLERS = {
     "upsert_variant": upsert_variant,
     "upsert_customer": upsert_customer,
     "upsert_order": upsert_order,
+    "upsert_product_quantity_transaction": upsert_product_quantity_transaction,
+    "upsert_product_quantities": upsert_product_quantities,
     "upsert_order_status": None,  # lazy import
     "upsert_category": None,
     "upsert_brand": None,
