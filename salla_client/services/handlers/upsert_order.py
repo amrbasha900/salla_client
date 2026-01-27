@@ -240,6 +240,7 @@ def upsert_order(store_id: str, payload: dict[str, Any]) -> dict[str, Any]:
     # legacy Sales Order fields (old salla_integration schema)
     set_if_field(doc, "salla_is_from_salla", 1)
     set_if_field(doc, "salla_store", target_store)
+    set_if_field(doc, "salla_order_reference_id", raw_obj.get("reference_id"))
     set_if_field(doc, "salla_order_id", external_id)
     set_if_field(doc, "salla_sync_status", "Synced")
     set_if_field(doc, "salla_last_synced", now_datetime())
