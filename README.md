@@ -23,7 +23,7 @@ Install this app on your Frappe/ERPNext bench:
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch develop
+bench get-app $URL_OF_THIS_REPO --branch master
 bench install-app salla_client
 ```
 
