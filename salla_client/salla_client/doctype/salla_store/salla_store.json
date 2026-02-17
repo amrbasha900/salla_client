@@ -146,9 +146,10 @@
    "options": "Price List"
   }
  ],
+ "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-01-15 13:05:25.102201",
+ "modified": "2026-02-17 00:30:59.055585",
  "modified_by": "Administrator",
  "module": "Salla Client",
  "name": "Salla Store",

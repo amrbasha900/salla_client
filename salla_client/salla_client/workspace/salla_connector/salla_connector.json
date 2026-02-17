@@ -1,0 +1,108 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"wslrLCjMVx\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Salla Connector</span>\",\"col\":12}},{\"id\":\"JpRzcueDuX\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Store\",\"col\":3}},{\"id\":\"KbpaSTqAp1\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Product\",\"col\":3}},{\"id\":\"C8cw-rWINI\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Order\",\"col\":3}},{\"id\":\"173SQhpfPX\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Category\",\"col\":3}},{\"id\":\"0yOfS9DRrN\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Product Option\",\"col\":3}},{\"id\":\"8giu2bRkXE\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Product Quantity Transaction\",\"col\":6}},{\"id\":\"iRcMSyfi2U\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Product Quantities\",\"col\":4}},{\"id\":\"VEU9e-l9k-\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"CWCdgAEeRW\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Salla Settings</b></span>\",\"col\":3}},{\"id\":\"op24jTtf9E\",\"type\":\"spacer\",\"data\":{\"col\":9}},{\"id\":\"_ukkPZF0s_\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Manager Connection\",\"col\":3}},{\"id\":\"lYlrXKTHMJ\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Integration Settings\",\"col\":3}},{\"id\":\"uG6V2JQA20\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Salla Webhook Log\",\"col\":3}}]",
+ "creation": "2026-01-20 14:41:05.916201",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "retail",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Salla Connector",
+ "links": [],
+ "modified": "2026-02-17 00:26:15.403955",
+ "modified_by": "Administrator",
+ "module": "Salla Client",
+ "name": "Salla Connector",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Salla Store",
+   "link_to": "Salla Store",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Salla Manager Connection",
+   "link_to": "Salla Manager Connection",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Salla Product",
+   "link_to": "Item",
+   "stats_filter": "[[\"Item\",\"salla_is_from_salla\",\"=\",1,false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Pink",
+   "doc_view": "List",
+   "label": "Salla Order",
+   "link_to": "Sales Order",
+   "stats_filter": "[[\"Sales Order\",\"salla_is_from_salla\",\"=\",1,false]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Salla Category",
+   "link_to": "Salla Category",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Salla Integration Settings",
+   "link_to": "Salla Integration Settings",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Salla Product Option",
+   "link_to": "Salla Product Option",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Salla Webhook Log",
+   "link_to": "Salla Webhook Log",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Salla Product Quantity Transaction",
+   "link_to": "Salla Product Quantity Transaction",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Salla Product Quantities",
+   "link_to": "Salla Product Quantities",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Salla Connector"
+}

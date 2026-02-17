@@ -304,6 +304,10 @@ def receive_command() -> Dict[str, Any]:
             return _response(True, idempotency_key, "skipped", [SKIPPED_REASON_DISABLED])
 
         result = _apply_command(log_doc, settings, payload)
+        if payload.get("command_type") == "upsert_store" and result.get("status") == "applied":
+            settings.status = "connected"
+            settings.last_seen_at = now_datetime()
+            settings.save(ignore_permissions=True)
         return _response(True, idempotency_key, result.get("status"), [err.get("message") for err in result.get("errors", [])])
     except Exception as exc:
         frappe.log_error(frappe.get_traceback(), "Salla Client receive_command failure")
